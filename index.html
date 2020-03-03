@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Random Food</title>
+    <link rel ="icon" href ="icon.png" type = "image/x-icon">
+    <style>
+        body {
+            background-color: #ebe8be;
+        }
+        h1 {
+            color: #347a2a;
+            font-family: 'Courier New', Courier, monospace;
+            text-align: center;
+            font-size: 100px
+        }
+        .bg {
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        .outtext {
+            border: #202e24;
+            border-width: 1.5px;
+            border-style: solid;
+            color: #202e24;
+            text-align: center;
+            padding: 1cm;
+            padding-top: .5cm;
+            padding-bottom: .5cm;
+            background-color: #b3c87a;
+            font-family: monospace;
+            font-size: 23px;
+            font-weight: bold;
+        }
+        .roll {
+            background-color: #b3c87a;
+            align-self: center;            
+            border-style: solid;
+            border-color: #202e24;
+            border-width: 3px;
+            display:block;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 25px;
+            font-weight: bold;
+            padding-left: 2cm;
+            padding-right: 2cm;
+            padding-top: 0.25cm;
+            padding-bottom: 0.25cm;
+            margin-left:auto;
+            margin-right:auto;
+            margin-top:20px;
+            margin-bottom:0%;
+            outline: none;
+        }
+        .butt {
+            background-color: #b3c87a;            
+            border-style: solid;
+            border-color: #202e24;
+            border-width: 3px;
+            display:block;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 25px;
+            font-weight: bold;
+            padding-left: 2cm;
+            padding-right: 2cm;
+            padding-top: 0.25cm;
+            padding-bottom: 0.25cm;
+            margin-left:auto;
+            margin-right:auto;
+            margin-top:20px;
+            margin-bottom:0%;
+            outline: none;}
+        #time {
+            text-align: center;
+            font-family: consolas;
+            font-weight: bold;
+            font-size: 25px;
+        }
+        #date {
+            text-align: center;
+            font-family: consolas;
+            font-weight: bold;
+            font-size: 25px;
+        }
+    </style>
+
+    <script type="text/javascript">
+        var morningList = ["cơm", "cá", "cức", "chó"];
+        var noonList = ["con", "chó", "ăn", "cức", "heo", "gà"];
+        var nightList = ["Cơm tấm nhà trẻ", "Cơm tấm ngã tư", "Bún riêu", "Hủ tiếu", "Cơm dương châu", "Bánh mì chả chiên", "Cháo lòng", "Hủ tiếu gần nhà"];
+        var time = new Date();
+        var currentHour = time.getHours();
+
+        function currentDate() {
+            var add1 = 1;
+            var date = new Date();
+            var day = date.getDate();
+            var month = date.getMonth();
+            var year = date.getFullYear();
+            document.getElementById("date").innerHTML = day + "/" + month + add1 + "/" + year;
+        }
+        function colorOnNotTrigger(x) {
+            x.style.background = "#b3c87a";
+            x.style.color = "black";
+        }
+        function colorOnTrigger(x) {
+            x.style.background = "#202e24";
+            x.style.color = "#b3c87a";
+        }
+        function randomFood() {
+            if (currentHour < 10 && currentHour >= 6) {
+                document.getElementById("outtext").innerHTML = morningList[Math.floor(Math.random() * morningList.length)]
+            } else if (currentHour < 17 && currentHour >= 10) {
+                document.getElementById("outtext").innerHTML = noonList[Math.floor(Math.random() * noonList.length)]
+            } else if (currentHour < 21 && currentHour >= 17) {
+                document.getElementById("outtext").innerHTML = nightList[Math.floor(Math.random() * nightList.length)]
+            } else {
+                document.getElementById("outtext").innerHTML = "Chưa tới giờ ăn =))"
+            }
+        }
+        function checkTime(i) {
+            if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
+            return i;
+        }
+        function startTime() {
+            var today = new Date();
+            var h = today.getHours();
+            var m = today.getMinutes();
+            var s = today.getSeconds();
+            m = checkTime(m);
+            s = checkTime(s);
+            document.getElementById('time').innerHTML = h + ":" + m + ":" + s;
+            var t = setTimeout(startTime, 1000);
+        }
+    </script>
+
+</head>
+<body class = 'bg' onload="startTime(), currentDate()">
+    <h1>RANDOM FOOD</h1>
+    <div id="date"></div>    
+    <div id="time"></div>
+    <p id="outtext" class="outtext">Click "NEW" for a random food.</p>
+    <button class = "roll" onmouseover="colorOnTrigger(this)" onmouseout="colorOnNotTrigger(this)" onclick="randomFood()">NEW</button>
+    <div>
+        <a href="source/showFoodList.html">Show all Foods</a>
+        <a href="source/appendFood.html">Add new foods to list</a>
+    </div>
+</body>
+</html>
